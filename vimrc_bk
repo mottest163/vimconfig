@@ -16,7 +16,7 @@ set encoding=utf-8
 set t_Co=256
 
 " Change Map Leader
-" let mapleader=','
+let mapleader=','
 
 " Always show status bar
 set ls=2
@@ -53,8 +53,8 @@ set history=100
 
 " for tab
 set tabstop=4
-set expandtab
 set shiftwidth=4
+" set expandtab
 ",set noexpandtab "use for change tab input style
 ":retab  "use for convert tab to space,after call set expandtab
 set list
@@ -62,23 +62,7 @@ set listchars=tab:>-,trail:-
 
 set mouse=a
 
-"auto complete
-""set completeopt=longest,menu
-"":inoremap ( ()<ESC>i
-"":inoremap ) <c-r>=ClosePair(')')<CR>
-"":inoremap { {<CR>}<ESC>O
-"":inoremap } <c-r>=ClosePair('}')<CR>
-"":inoremap [ []<ESC>i
-"":inoremap ] <c-r>=ClosePair(']')<CR>
-"":inoremap " ""<ESC>i
-"":inoremap ' ''<ESC>i
-""function! ClosePair(char)
-""    if getline('.')[col('.') - 1] == a:char
-""        return "\<Right>"
-""    else
-""        return a:char
-""    endif
-""endfunction
+set path=$PWD/**
 
 hi ColorColumn ctermbg=darkred guibg=darkred
 set cc=81
@@ -103,23 +87,35 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " ctrlp.vim
-set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|tox)$'
-let g:ctrlp_user_command = "find %s -type f | grep -Ev '"+ g:ctrlp_custom_ignore +"'"
-let g:ctrlp_use_caching = 0
+let g:ctrlp_map = '<leader>p'
+let g:ctrlp_cmd = 'CtrlP'
+map <leader>fm :CtrlPMRU<CR>
+map <leader>fb :CtrlPBuffer<CR>
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
+    \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
+    \ }
+let g:ctrlp_working_path_mode=0
+let g:ctrlp_match_window_bottom=1
+let g:ctrlp_max_height=15
+let g:ctrlp_match_window_reversed=0
+let g:ctrlp_mruf_max=500
+let g:ctrlp_follow_symlinks=1
+let g:ctrlp_max_files = 0
+let g:ctrlp_mas_depth = 40
+
+" ctrlp-funky
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+let g:ctrlp_funky_matchtype = 'path'
+let g:ctrlp_funky_syntax_highlight = 1
 
 " rainbow parentheses
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
-
-" default Leader Character is \
-nnoremap <silent> <Leader>ib :TagbarToggle<CR>
-let NERDTreeDirArrows = 0
-nnoremap <silent> <Leader>it :NERDTreeToggle<CR>
-" ++++++++++Ronnie add end++++++++++++
 
 " avoid enter Ex mode as Q
 nnoremap Q <nop>
