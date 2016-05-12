@@ -1,13 +1,20 @@
 " ++++++++++Ronnie add begin++++++++++
 " common setting
 set nocp
-"filetype plugin indent on
-filetype plugin indent off
 
-syntax enable
-execute pathogen#infect()
-execute pathogen#helptags()
+" disable youcompleteme due to slow load
+" you can use myvim instead of vim to start with it
+let g:pathogen_disabled=[]
+call add(g:pathogen_disabled, 'YouCompleteMe')
+
+if has('python')
+    execute pathogen#infect()
+    execute pathogen#helptags()
+endif
+
+"syntax enable
 syntax on
+filetype plugin indent on
 
 set fileencodings=utf-8,ucs-bom,cp936,gb2312,gbk,gb18030,latin1
 set termencoding=utf-8
@@ -29,7 +36,9 @@ set hidden
 "set solarized theme
 set background=dark
 let g:solarized_termcolors=256
-colorscheme solarized
+if has('python')
+    colorscheme solarized
+endif
 
 "turn backup off
 set nobackup
@@ -42,27 +51,27 @@ set incsearch
 set hlsearch
 set showmatch
 
+set paste
 set number
 set showcmd
+set showmode
+set history=100
+set mouse=a
+set path=$PWD/**
 
 "highlight current input line
 autocmd InsertLeave * se nocul
 autocmd InsertEnter * se cul
 
-set history=100
-
 " for tab
 set tabstop=4
 set shiftwidth=4
-" set expandtab
+set expandtab
 ",set noexpandtab "use for change tab input style
 ":retab  "use for convert tab to space,after call set expandtab
 set list
 set listchars=tab:>-,trail:-
 
-set mouse=a
-
-set path=$PWD/**
 
 hi ColorColumn ctermbg=darkred guibg=darkred
 set cc=81
@@ -104,18 +113,31 @@ let g:ctrlp_follow_symlinks=1
 let g:ctrlp_max_files = 0
 let g:ctrlp_mas_depth = 40
 
+" tagbar
+let g:tagbar_width=80
+map <leader>tb :TagbarToggle<CR>
+
 " ctrlp-funky
-nnoremap <Leader>fu :CtrlPFunky<Cr>
+nnoremap <Leader>ff :CtrlPFunky<Cr>
 " narrow the list down with a word under cursor
-nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+nnoremap <Leader>fF :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 let g:ctrlp_funky_matchtype = 'path'
 let g:ctrlp_funky_syntax_highlight = 1
 
 " rainbow parentheses
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+" active when start vim
+if has('python')
+    au VimEnter * RainbowParenthesesToggle
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
+endif
+
+" delimitmate
+let g:delimitMate_expand_cr = 0
+
+" easymotion
+"let g:EasyMotion_smartcase = 1
 
 " avoid enter Ex mode as Q
 nnoremap Q <nop>

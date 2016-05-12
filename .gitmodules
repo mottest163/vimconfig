@@ -28,3 +28,6 @@
 [submodule "vim-colors-solarized"]
 	path = vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
+[submodule "bundle/vim-scriptease"]
+	path = bundle/vim-scriptease
+	url = git://github.com/tpope/vim-scriptease.git
