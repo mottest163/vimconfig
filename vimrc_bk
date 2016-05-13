@@ -7,12 +7,10 @@ set nocp
 let g:pathogen_disabled=[]
 call add(g:pathogen_disabled, 'YouCompleteMe')
 
-if has('python')
-    execute pathogen#infect()
-    execute pathogen#helptags()
-endif
+execute pathogen#infect()
+execute pathogen#helptags()
 
-"syntax enable
+syntax enable
 syntax on
 filetype plugin indent on
 
@@ -36,9 +34,7 @@ set hidden
 "set solarized theme
 set background=dark
 let g:solarized_termcolors=256
-if has('python')
-    colorscheme solarized
-endif
+colorscheme solarized
 
 "turn backup off
 set nobackup
@@ -85,7 +81,7 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkgrey
 " airline
 """"""""""""""""""""""""""""""
 let g:airline_theme = 'light'
-let g:airline_powerline_fonts = 1""
+let g:airline_powerline_fonts = 0
 " enable tabline
 let g:airline#extensions#tabline#enabled = 1
 " set left separator
@@ -126,12 +122,10 @@ let g:ctrlp_funky_syntax_highlight = 1
 
 " rainbow parentheses
 " active when start vim
-if has('python')
-    au VimEnter * RainbowParenthesesToggle
-    au Syntax * RainbowParenthesesLoadRound
-    au Syntax * RainbowParenthesesLoadSquare
-    au Syntax * RainbowParenthesesLoadBraces
-endif
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
 " delimitmate
 let g:delimitMate_expand_cr = 0
